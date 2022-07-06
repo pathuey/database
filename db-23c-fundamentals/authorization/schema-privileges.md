@@ -41,7 +41,6 @@ You must create two users, one to create the privilege analysis policy and a sec
    sqlplus sec_admin@<i>pdb_name</i>  
    Enter password: <i>password</i>
    ```
-
    To find the available PDBs, query the <code>DBA_PDBS</code> data dictionary  view. To check the current PDB, run the <code>show con_name</code>. command.
 
 2. Create the following users:
@@ -50,7 +49,6 @@ You must create two users, one to create the privilege analysis policy and a sec
    CREATE USER pa_admin IDENTIFIED BY <i>password</i>;
    CREATE USER sec_user IDENTIFIED BY <i>password</i>;
    ```
-
    Replace <code><i>password</i></code> with a password that is secure.
 
 4. Connect as a user who has the privileges to grant roles and system privileges to other users, and who has been granted the owner authorization for the Oracle System Privilege and Role Management realm. (User <code>SYS</code> has these privileges by default.)
@@ -60,7 +58,6 @@ You must create two users, one to create the privilege analysis policy and a sec
    CONNECT dba_psmith@pdb_name
    Enter password: <i>password</i>
    ```
-
    In SQL*Plus, a user who has been granted the <code>DV_OWNER</code> role can check the authorization by querying the <code>DBA_DV_REALM_AUTH</code> data dictionary view. To grant the user authorization, use the <code>DBMS_MACADM.ADD_AUTH_TO_REALM</code> procedure.
 
 5. Grant the following roles and privileges to the users.
@@ -69,7 +66,6 @@ You must create two users, one to create the privilege analysis policy and a sec
    GRANT CREATE SESSION, CAPTURE_ADMIN TO pa_admin;  
    GRANT CREATE SESSION TO sec_user;
    ```
-
    User <code>pa_admin</code> will create the privilege analysis policy that will analyze the database tuning operations that user <code>sec_user</code> will perform.
 
 6. For user <code>sec_user</code>, grant the <code>SELECT ANY TABLE</code> and <code>DELETE ANY TABLE</code> system privileges as schema privileges for the <code>HR</code> schema.
