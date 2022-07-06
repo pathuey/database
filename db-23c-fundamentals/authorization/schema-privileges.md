@@ -4,12 +4,12 @@
 
 *REVIEWERS: This LiveLab is based on the 23c feature 46886-1, Schema Privileges. Privilege analysis has been around for a while but has been updated to accommodate this feature.*
 
-This lab shows how to capture a user's schema privilege use for the <code>SELECT ANY TABLE</code> and <code>DELETE ANY TABLE</cod> system privileges on the <cod>HR</code> schema.
+This lab shows how to capture a user's schema privilege use for the <code>SELECT ANY TABLE</code> and <code>DELETE ANY TABLE</code> system privileges on the <cod>HR</code> schema.
 
 Estimated Time: 15 minutes
 
 ### About Schema Privileges and Privilege Analysis
-A schema privilege is a system privilege that is granted to a user and is restricted to the objects in a specified schema. For example, the following schema privilege grant enables user <code>pfitch</code> to select and delete tables in the <code>HR</code> schema, but not in any other schema.
+A schema privilege is a system privilege that is granted to a user and is restricted to the objects in a specified schema. By granting the system privilege to a user for the entire schema, you simplify application authorizations without compromising security. For example, the following schema privilege grant enables user <code>pfitch</code> to select and delete tables in the <code>HR</code> schema, but not in any other schema.
 
 <code>GRANT SELECT ANY TABLE, DELETE ANY TABLE ON SCHEMA HR TO pfitch;</code>
 
