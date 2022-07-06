@@ -199,7 +199,7 @@ You must create two users, one to create the privilege analysis policy and a sec
    DROP USER sec_user;</code>
 
 ## Learn More
-*The following links go to the 23c internal draft of DBSEG but will be replaced with public library links once 23c is released.*
+*REVIEWERS: The following links go to the 23c internal draft of DBSEG but will be replaced with public library links once 23c is released. Should it have the name of the manual or are we going only by topic names now?*
 
 * [Managing Schema Privileges](http://st-doc.us.oracle.com/id_common/review/docbuilder/html/F46690_01/configuring-privilege-and-role-authorization.htm#GUID-483D04AF-BC5B-4B3D-9D9A-1D2C3CE8F12F)
 * [Administering Schema Security Policies](http://st-doc.us.oracle.com/id_common/review/docbuilder/html/F46690_01/configuring-privilege-and-role-authorization.htm#GUID-DBDFDCE7-5E6E-43A8-9D21-87388B2AC179)
