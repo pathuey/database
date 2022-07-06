@@ -36,10 +36,12 @@ You must create two users, one to create the privilege analysis policy and a sec
 
 1. Log into a PDB as a user who has the CREATE USER system privilege.
 
-   For example: 
+   For example:
 
-   <code>sqlplus sec_admin@<i>pdb_name</i><br />  
+   ```
+   <code>sqlplus sec_admin@<i>pdb_name</i>  
    Enter password: <i>password</i></code>
+   ```
 
    To find the available PDBs, query the <code>DBA_PDBS</code> data dictionary  view. To check the current PDB, run the <code>show con_name</code>. command.
 
