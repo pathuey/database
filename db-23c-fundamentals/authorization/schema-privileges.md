@@ -23,47 +23,51 @@ In this lab, you will:
 * Disable the privilege analysis policy after the user performed the activity.
 * Generate and view the privilege analysis report on the user.
 
-### Prerequisites (Optional)
+### Prerequisites
 
 This lab assumes you have:
 * An Oracle account
 * An understanding of Oracle Database privileges, but in-depth knowlege is not needed
 
-## Task 1: <what is the action in this step>
+## Task 1: Create User Accounts
 
-(optional) Step 1 opening paragraph.
+You must create two users, one to create the privilege analysis policy and a second user whose schema privilege use will be analyzed.
 
-1. Sub step 1
+1. Log into a PDB as a user who has the CREATE USER system privilege.
 
-		![Image alt text](images/sample1.png)
+   For example:
 
-  To create a link to local file you want the reader to download, use the following format.
+   <code>sqlplus sec_admin@<i>pdb_name</i>
+   Enter password: <i>password</i></code>
 
-	> **Note:** _The filename must be in lowercase letters and CANNOT include any spaces._
+   To find the available PDBs, query the <code>DBA_PDBS</code> data dictionary  view. To check the current PDB, run the <code>show con_name</code>. command.
 
-  Download the [starter file](files/starter-file.sql) SQL code.
+2. Create the following users:
 
-	When the file type is recognized by the browser, it will attempt to render it. So you can use the following format to force the download dialog box.
+  <code>CREATE USER pa_admin IDENTIFIED BY <i>password</i>;
+  CREATE USER sec_user IDENTIFIED BY <i>password</i>;</code>
 
-	> **Note:** _The filename must be in lowercase letters and CANNOT include any spaces._
+  Replace <code><i>password</i></code> with a password that is secure.
 
-	Download the [sample JSON code](files/sample.json?download=1).
+4. Connect as a user who has the privileges to grant roles and system privileges to other users, and who has been granted the owner authorization for the Oracle System Privilege and Role Management realm. (User <code>SYS</code> has these privileges by default.)
 
-  *IMPORTANT: do not include zip files, CSV, PDF, PSD, JAR, WAR, EAR, bin or exe files - you must have those objects stored somewhere else. We highly recommend using Oracle Cloud Object Store and creating a PAR URL instead. See [Using Pre-Authenticated Requests](https://docs.cloud.oracle.com/en-us/iaas/Content/Object/Tasks/usingpreauthenticatedrequests.htm)*
+   For example:
 
-2. Sub step 2
+   <code>CONNECT dba_psmith@pdb_name
+   Enter password: <i>password</i> </code>
 
-    ![Image alt text](images/sample1.png)
+   In SQL*Plus, a user who has been granted the <code>DV_OWNER</code> role can check the authorization by querying the <code>DBA_DV_REALM_AUTH</code> data dictionary view. To grant the user authorization, use the <code>DBMS_MACADM.ADD_AUTH_TO_REALM</code> procedure.
 
-4. Example with inline navigation icon ![Image alt text](images/sample2.png) click **Navigation**.
+5. Grant the following roles and privileges to the users.
 
-5. Example with bold **text**.
+   <code>GRANT CREATE SESSION, CAPTURE_ADMIN TO pa_admin;
+   GRANT CREATE SESSION TO sec_user;</code>
 
-  If you add another paragraph, add 3 spaces before the line.
+   User <code>pa_admin</code> will create the privilege analysis policy that will analyze the database tuning operations that user <code>sec_user</code> will perform.
 
-6. Example with bold **text**.
+6. For user <code>sec_user</code>, grant the <code>SELECT ANY TABLE</code> and <code>DELETE ANY TABLE</code> system privileges as schema privileges for the <code>HR</code> schema.
 
-    If you add another paragraph, add 3 spaces before the line.  
+    <code>GRANT SELECT ANY TABLE, DELETE ANY TABLE ON SCHEMA HR TO sec_user;</code>  
 
 ## Task 2: <what is the action in this step>
 
