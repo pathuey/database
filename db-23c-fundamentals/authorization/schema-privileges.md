@@ -38,14 +38,14 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    For example:
 
-   <code>sqlplus sec_admin@<i>pdb_name</i>  
+   <code>sqlplus sec_admin@<i>pdb_name</i><br />  
    Enter password: <i>password</i></code>
 
    To find the available PDBs, query the <code>DBA_PDBS</code> data dictionary  view. To check the current PDB, run the <code>show con_name</code>. command.
 
 2. Create the following users:
 
-   <code>CREATE USER pa_admin IDENTIFIED BY <i>password</i>;  
+   <code>CREATE USER pa_admin IDENTIFIED BY <i>password</i>;<br />  
    CREATE USER sec_user IDENTIFIED BY <i>password</i>;</code>
 
    Replace <code><i>password</i></code> with a password that is secure.
@@ -54,7 +54,7 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    For example:
 
-   <code>CONNECT dba_psmith@pdb_name  
+   <code>CONNECT dba_psmith@pdb_name<br />
    Enter password: <i>password</i> </code>
 
    In SQL*Plus, a user who has been granted the <code>DV_OWNER</code> role can check the authorization by querying the <code>DBA_DV_REALM_AUTH</code> data dictionary view. To grant the user authorization, use the <code>DBMS_MACADM.ADD_AUTH_TO_REALM</code> procedure.
