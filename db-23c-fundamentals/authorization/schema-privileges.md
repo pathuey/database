@@ -37,7 +37,6 @@ You must create two users, one to create the privilege analysis policy and a sec
 1. Log into a PDB as a user who has the CREATE USER system privilege.
 
    For example:
-
    ```
    sqlplus sec_admin@<i>pdb_name</i>  
    Enter password: <i>password</i>
@@ -57,7 +56,6 @@ You must create two users, one to create the privilege analysis policy and a sec
 4. Connect as a user who has the privileges to grant roles and system privileges to other users, and who has been granted the owner authorization for the Oracle System Privilege and Role Management realm. (User <code>SYS</code> has these privileges by default.)
 
    For example:
-
    ```
    CONNECT dba_psmith@pdb_name
    Enter password: <i>password</i>
@@ -102,7 +100,6 @@ You must create two users, one to create the privilege analysis policy and a sec
    END;  
    /
    ```
-
    In this example, <code>type</code> specifies that the type is a database wide condition.
 
 3. Enable the policy.
@@ -110,7 +107,6 @@ You must create two users, one to create the privilege analysis policy and a sec
    ```
    EXEC DBMS_PRIVILEGE_CAPTURE.ENABLE_CAPTURE ('sec_user_capture_pol');
    ```
-
    At this point, the policy is ready to start recording the actions of user <code>sec_user</code>.
 
 ## Task 3: Use the READ ANY TABLE System Privilege
@@ -129,8 +125,7 @@ You must create two users, one to create the privilege analysis policy and a sec
    ```
    SELECT FIRST_NAME, LAST_NAME FROM HR.EMPLOYEES WHERE SALARY > 8000;
    ```
-
-   Output similar to the following appears:
+  Output similar to the following appears:
 
    ```  
    FIRST_NAME           LAST_NAME  
@@ -169,7 +164,6 @@ You must create two users, one to create the privilege analysis policy and a sec
    ```
    EXEC DBMS_PRIVILEGE_CAPTURE.GENERATE_RESULT ('sec_user_capture_pol');
    ```
-
    The generated results are stored in the privilege analysis data dictionary views.
 
 2. Enter the following commands to format the data dictionary view output:
@@ -184,7 +178,6 @@ You must create two users, one to create the privilege analysis policy and a sec
    ```
    SELECT SCH_PRIV, SCHEMA FROM DBA_USED_SCHEMA_PRIVS WHERE USERNAME = 'SEC_USER';
    ```
-
    The following output should appear:
 
    ```
@@ -198,7 +191,6 @@ You must create two users, one to create the privilege analysis policy and a sec
    ```
    SELECT SCH_PRIV, SCHEMA FROM DBA_UNUSED_SCHEMA_PRIVS WHERE USERNAME = 'SEC_USER';
    ```
-
    The following output should appear:
 
    ```
@@ -216,7 +208,6 @@ You must create two users, one to create the privilege analysis policy and a sec
    ```
    EXEC DBMS_PRIVILEGE_CAPTURE.DROP_CAPTURE ('sec_user_capture_pol');
    ```
-
    Even though in the next steps you will drop the <code>pa_admin</code> user, including any objects that were created in this user's schema, you must manually drop the <code>sec_user_capture_pol</code> privilege analysis policy because this object resides in the <code>SYS</code> schema.
 
 2. Connect as the user who created the user accounts.
