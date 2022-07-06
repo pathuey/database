@@ -34,7 +34,7 @@ This lab assumes you have:
 
 You must create two users, one to create the privilege analysis policy and a second user whose schema privilege use will be analyzed.
 
-1. Log into a PDB as a user who has the CREATE USER system privilege.
+1. Log into a PDB as a user who has the <code>CREATE USER</code> system privilege.
 
    For example:
    ```
@@ -182,7 +182,7 @@ You must create two users, one to create the privilege analysis policy and a sec
    SELECT ANY TABLE  HR  
    ```
 
-4. Query <code>DBA_UNUSED_SCHEMA_PRIVS</code> to find the unused schema privileges for <code>user sec_user</code.
+4. Query <code>DBA_UNUSED_SCHEMA_PRIVS</code> to find the unused schema privileges for <code>user sec_user</code>.
 
    ```
    SELECT SCH_PRIV, SCHEMA FROM DBA_UNUSED_SCHEMA_PRIVS WHERE USERNAME = 'SEC_USER';
@@ -210,7 +210,8 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    For example:
 
-   ```CONNECT sec_admin@<i>pdb_name  
+   ```
+   CONNECT sec_admin@<i>pdb_name  
    Enter password: <i>password</i>
    ```
 
