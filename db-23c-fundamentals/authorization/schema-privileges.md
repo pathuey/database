@@ -61,6 +61,10 @@ This lab assumes you have:
 
   If you add another paragraph, add 3 spaces before the line.
 
+6. Example with bold **text**.
+
+    If you add another paragraph, add 3 spaces before the line.  
+
 ## Task 2: <what is the action in this step>
 
 1. Sub step 1 - tables sample
