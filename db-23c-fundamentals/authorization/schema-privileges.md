@@ -2,7 +2,7 @@
 
 ## Introduction
 
-*This LiveLab is based on the 23c feature 46886-1, Schema Privileges. Privilege analysis has been around for a while but works nicely with this feature.*
+*This LiveLab is based on the 23c feature 46886-1, Schema Privileges. Privilege analysis has been around for a while but has been updated to accommodate this feature.*
 This lab shows how to capture a user's schema privilege use for the <code>SELECT ANY TABLE</code> and <code>DELETE ANY TABLE</cod> system privileges on the <cod>HR</code> schema.
 
 Estimated Time: 15 minutes
@@ -69,46 +69,143 @@ You must create two users, one to create the privilege analysis policy and a sec
 
     <code>GRANT SELECT ANY TABLE, DELETE ANY TABLE ON SCHEMA HR TO sec_user;</code>  
 
-## Task 2: <what is the action in this step>
+## Task 2: Create and Enable a Privilege Analysis Policy
 
-1. Sub step 1 - tables sample
+   User <code>pa_admin</code> must create the and enable the privilege analysis policy.
 
-  Use tables sparingly:
+1. Connect to the PDB as user <code>pa_admin</code>.
 
-  | Column 1 | Column 2 | Column 3 |
-  | --- | --- | --- |
-  | 1 | Some text or a link | More text  |
-  | 2 |Some text or a link | More text |
-  | 3 | Some text or a link | More text |
+   <code>CONNECT pa_admin@<i>pdb_name</i>
+   Enter password: <i>password</i)</code>
 
-2. You can also include bulleted lists - make sure to indent 4 spaces:
+2. Create the following privilege analysis policy:
 
-    - List item 1
-    - List item 2
+   <code>
+   BEGIN
+     DBMS_PRIVILEGE_CAPTURE.CREATE_CAPTURE(
+       name          => 'sec_user_capture_pol',
+       description   => 'Captures sec_user used and not used privileges',
+       type          => DBMS_PRIVILEGE_CAPTURE.G_DATABASE);
+   END;
+   /
+   </code>
 
-3. Code examples
+   In this example, <code>type</code> specifies that the type is a database wide condition.
 
-    ```
-    Adding code examples
-  	Indentation is important for the code example to appear inside the step
-    Multiple lines of code
-  	<copy>Enclose the text you want to copy in <copy></copy>.</copy>
-    ```
+3. Enable the policy.
 
-4. Code examples that include variables
+   <code>EXEC DBMS_PRIVILEGE_CAPTURE.ENABLE_CAPTURE ('sec_user_capture_pol');</code>
 
-	```
-  <copy>ssh -i <ssh-key-file></copy>
-  ```
+   At this point, the policy is ready to start recording the actions of user <code>sec_user</code>.
+
+## Task 3: Use the READ ANY TABLE System Privilege
+
+   User <code>sec_user</code> uses the <code>SELECT ANY TABLE</code> system privilege on the <code>HR</code> schema.
+
+1. Connect as user <code>sec_user</code>.
+
+   <code>CONNECT sec_user@<i>pdb_name</i>
+   Enter password: <i>password</i></code>
+
+2. Query the <code>HR.EMPLOYEES</code> table to find <code>sec_user</code>'s highest paid coworkers.
+
+   SELECT FIRST_NAME, LAST_NAME FROM HR.EMPLOYEES WHERE SALARY > 8000;
+
+   Output similar to the following appears:
+
+   <code>
+   FIRST_NAME           LAST_NAME
+   -------------------- -------------------------
+   Steven               King
+   Neena                Kochhar
+   Lex                  De Haan
+   Alexander            Hunold
+   Nancy                Greenberg
+   Daniel               Faviet
+   ...    
+   </code>
+
+## Task 4: Disable the Privilege Analysis Policy
+   You must disable the policy before you can generate a report that captures the actions of user <code>sec_user</code>.
+
+1. Connect as user <code>pa_admin</code>.
+
+   <code>CONNECT pa_admin@<i>pdb_name</>
+   Enter password: <i>password</i></code>
+
+2. Disable the <code>sec_user_capture_pol</code> privilege policy.
+
+   <code>EXEC DBMS_PRIVILEGE_CAPTURE.DISABLE_CAPTURE ('sec_user_capture_pol');</code>
+
+## Task 5: Generate and View Privilege Analysis Reports
+
+   With the privilege analysis policy disabled, user <code>pa_admin</code> can generate and view privilege analysis reports.
+
+1. As user <code>pa_admin</code>, generate the privilege analysis results.
+
+   <code>EXEC DBMS_PRIVILEGE_CAPTURE.GENERATE_RESULT ('sec_user_capture_pol');</code>
+
+   The generated results are stored in the privilege analysis data dictionary views.
+
+2. Enter the following commands to format the data dictionary view output:
+
+   <code>col sch_priv format a20
+   col schema format a20</code>
+
+3. Query the <code>DBA_USED_SCHEMA_PRIVS</code> data dictionary view to find the schema privileges that user <code>sec_user</code> used during the privilege analysis period.
+
+   <code>SELECT SCH_PRIV, SCHEMA FROM DBA_USED_SCHEMA_PRIVS WHERE USERNAME = 'SEC_USER';</code>
+
+   The following output should appear:
+
+   <code>
+   SCH_PRIV          SCHEMA
+   –---------------  –-------------------
+   SELECT ANY TABLE  HR
+   </code>
+
+4. Query <code>DBA_UNUSED_SCHEMA_PRIVS</code> to find the unused schema privileges for <code>user sec_user</code.
+
+   <code>SELECT SCH_PRIV, SCHEMA FROM DBA_UNUSED_SCHEMA_PRIVS WHERE USERNAME = 'SEC_USER'; </code>
+
+   The following output should appear:
+
+   <code>
+   SCH_PRIV          SCHEMA
+   –---------------  –-------------------
+   DELETE ANY TABLE  HR
+   </code>
+
+## Task 6: Remove the Components for This Lab
+
+   You can remove the components that you created for this lab if you no longer need them.
+
+1. As user <code>pa_admin</code>, drop the <code>sec_user_capture_pol</code> privilege analysis policy.
+
+   <code>EXEC DBMS_PRIVILEGE_CAPTURE.DROP_CAPTURE ('sec_user_capture_pol');</code>
+
+   Even though in the next steps you will drop the <code>pa_admin</code> user, including any objects that were created in this user's schema, you must manually drop the <code>sec_user_capture_pol</code> privilege analysis policy because this object resides in the <code>SYS</code> schema.
+
+2. Connect as the user who created the user accounts.
+
+   For example:
+
+   <code>CONNECT sec_admin@<code>pdb_name</code>
+   Enter password: <i>password</i></code>
+
+3. Drop the users <code>pa_admin</code> and <code>sec_user</code>.
+
+   <code>DROP USER pa_admin CASCADE;
+   DROP USER sec_user;</code>
 
 ## Learn More
+*The following links go to the 23c internal draft of DBSEG but will be replaced with public library links once 23c is released.* 
 
-*(optional - include links to docs, white papers, blogs, etc)*
-
-* [URL text 1](http://docs.oracle.com)
-* [URL text 2](http://docs.oracle.com)
+* [Managing Schema Privileges](http://st-doc.us.oracle.com/id_common/review/docbuilder/html/F46690_01/configuring-privilege-and-role-authorization.htm#GUID-483D04AF-BC5B-4B3D-9D9A-1D2C3CE8F12F)
+* [Administering Schema Security Policies](http://st-doc.us.oracle.com/id_common/review/docbuilder/html/F46690_01/configuring-privilege-and-role-authorization.htm#GUID-DBDFDCE7-5E6E-43A8-9D21-87388B2AC179)
+* [Performing Privilege Analysis to Find Privilege Use] (http://st-doc.us.oracle.com/id_common/review/docbuilder/html/F46690_01/GUID-44CB644B-7B59-4B3B-B375-9F9B96F60186.htm)
 
 ## Acknowledgements
-* **Author** - <Name, Title, Group>
+* **Author** - Patricia Huey, Consulting User Assistance Developer, User Assistance Development
 * **Contributors** -  <Name, Group> -- optional
-* **Last Updated By/Date** - <Name, Group, Month Year>
+* **Last Updated By/Date** - <Patricia Huey, User Assistance Development, July 2022>
