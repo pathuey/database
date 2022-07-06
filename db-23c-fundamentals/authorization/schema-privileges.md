@@ -13,7 +13,7 @@ A schema privilege is a system privilege that is granted to a user and is restri
 
 <code>GRANT SELECT ANY TABLE, DELETE ANY TABLE ON SCHEMA HR TO pfitch;</code>
 
-Privilege analysis enables a database administrator to capture a user's privilege use and then generate a report that describes how the user is using the privilege.
+Privilege analysis enables a database administrator to capture a user's privilege use and then generate a report that describes how the user is using the privilege. Privilege analysis, which was introduced in Oracle Database release 12c, has been enhanced to accommodate schema privileges. 
 
 ### Objectives
 
