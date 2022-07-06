@@ -38,14 +38,14 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    For example:
 
-   <code>sqlplus sec_admin@<i>pdb_name</i>
+   <code>sqlplus sec_admin@<i>pdb_name</i>  
    Enter password: <i>password</i></code>
 
    To find the available PDBs, query the <code>DBA_PDBS</code> data dictionary  view. To check the current PDB, run the <code>show con_name</code>. command.
 
 2. Create the following users:
 
-   <code>CREATE USER pa_admin IDENTIFIED BY <i>password</i>;
+   <code>CREATE USER pa_admin IDENTIFIED BY <i>password</i>;  
    CREATE USER sec_user IDENTIFIED BY <i>password</i>;</code>
 
    Replace <code><i>password</i></code> with a password that is secure.
@@ -54,14 +54,14 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    For example:
 
-   <code>CONNECT dba_psmith@pdb_name
+   <code>CONNECT dba_psmith@pdb_name  
    Enter password: <i>password</i> </code>
 
    In SQL*Plus, a user who has been granted the <code>DV_OWNER</code> role can check the authorization by querying the <code>DBA_DV_REALM_AUTH</code> data dictionary view. To grant the user authorization, use the <code>DBMS_MACADM.ADD_AUTH_TO_REALM</code> procedure.
 
 5. Grant the following roles and privileges to the users.
 
-   <code>GRANT CREATE SESSION, CAPTURE_ADMIN TO pa_admin;
+   <code>GRANT CREATE SESSION, CAPTURE_ADMIN TO pa_admin;  
    GRANT CREATE SESSION TO sec_user;</code>
 
    User <code>pa_admin</code> will create the privilege analysis policy that will analyze the database tuning operations that user <code>sec_user</code> will perform.
@@ -82,12 +82,12 @@ You must create two users, one to create the privilege analysis policy and a sec
 2. Create the following privilege analysis policy:
 
    <code>
-   BEGIN
-     DBMS_PRIVILEGE_CAPTURE.CREATE_CAPTURE(
-       name          => 'sec_user_capture_pol',
-       description   => 'Captures sec_user used and not used privileges',
-       type          => DBMS_PRIVILEGE_CAPTURE.G_DATABASE);
-   END;
+   BEGIN  
+     DBMS_PRIVILEGE_CAPTURE.CREATE_CAPTURE(  
+       name          => 'sec_user_capture_pol',  
+       description   => 'Captures sec_user used and not used privileges',  
+       type          => DBMS_PRIVILEGE_CAPTURE.G_DATABASE);  
+   END;  
    /
    </code>
 
@@ -105,7 +105,7 @@ You must create two users, one to create the privilege analysis policy and a sec
 
 1. Connect as user <code>sec_user</code>.
 
-   <code>CONNECT sec_user@<i>pdb_name</i>
+   <code>CONNECT sec_user@<i>pdb_name</i>  
    Enter password: <i>password</i></code>
 
 2. Query the <code>HR.EMPLOYEES</code> table to find <code>sec_user</code>'s highest paid coworkers.
@@ -114,16 +114,16 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    Output similar to the following appears:
 
-   <code>
-   FIRST_NAME           LAST_NAME
-   -------------------- -------------------------
-   Steven               King
-   Neena                Kochhar
-   Lex                  De Haan
-   Alexander            Hunold
-   Nancy                Greenberg
-   Daniel               Faviet
-   ...    
+   <code>  
+   FIRST_NAME           LAST_NAME  
+   -------------------- -------------------------  
+   Steven               King  
+   Neena                Kochhar  
+   Lex                  De Haan  
+   Alexander            Hunold  
+   Nancy                Greenberg  
+   Daniel               Faviet  
+   ...      
    </code>
 
 ## Task 4: Disable the Privilege Analysis Policy
@@ -131,7 +131,7 @@ You must create two users, one to create the privilege analysis policy and a sec
 
 1. Connect as user <code>pa_admin</code>.
 
-   <code>CONNECT pa_admin@<i>pdb_name</>
+   <code>CONNECT pa_admin@<i>pdb_name</>  
    Enter password: <i>password</i></code>
 
 2. Disable the <code>sec_user_capture_pol</code> privilege policy.
@@ -150,7 +150,7 @@ You must create two users, one to create the privilege analysis policy and a sec
 
 2. Enter the following commands to format the data dictionary view output:
 
-   <code>col sch_priv format a20
+   <code>col sch_priv format a20  
    col schema format a20</code>
 
 3. Query the <code>DBA_USED_SCHEMA_PRIVS</code> data dictionary view to find the schema privileges that user <code>sec_user</code> used during the privilege analysis period.
@@ -160,9 +160,9 @@ You must create two users, one to create the privilege analysis policy and a sec
    The following output should appear:
 
    <code>
-   SCH_PRIV          SCHEMA
-   –---------------  –-------------------
-   SELECT ANY TABLE  HR
+   SCH_PRIV          SCHEMA  
+   –---------------  –-------------------  
+   SELECT ANY TABLE  HR  
    </code>
 
 4. Query <code>DBA_UNUSED_SCHEMA_PRIVS</code> to find the unused schema privileges for <code>user sec_user</code.
@@ -172,9 +172,9 @@ You must create two users, one to create the privilege analysis policy and a sec
    The following output should appear:
 
    <code>
-   SCH_PRIV          SCHEMA
-   –---------------  –-------------------
-   DELETE ANY TABLE  HR
+   SCH_PRIV          SCHEMA  
+   –---------------  –-------------------  
+   DELETE ANY TABLE  HR  
    </code>
 
 ## Task 6: Remove the Components for This Lab
@@ -191,12 +191,12 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    For example:
 
-   <code>CONNECT sec_admin@<code>pdb_name</code>
+   <code>CONNECT sec_admin@<code>pdb_name</code>  
    Enter password: <i>password</i></code>
 
 3. Drop the users <code>pa_admin</code> and <code>sec_user</code>.
 
-   <code>DROP USER pa_admin CASCADE;
+   <code>DROP USER pa_admin CASCADE;  
    DROP USER sec_user;</code>
 
 ## Learn More
