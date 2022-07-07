@@ -38,31 +38,28 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    For example:
 
-   <p>some text <br />
-   next line </p>
-
-  <pre>
+   <pre>
    sqlplus sec_admin@<i>pub_name</i>  
    Enter password: <i>password</i>
    </pre>
-  
+
    To find the available PDBs, query the <code>DBA_PDBS</code> data dictionary  view. To check the current PDB, run the <code>show con_name</code>. command.
 
 2. Create the following users:
 
-   ```
-   CREATE USER pa_admin IDENTIFIED BY <password>;
-   CREATE USER sec_user IDENTIFIED BY <password>;
-   ```
-   Replace <code><password></code> with a password that is secure.
+   <pre>
+   CREATE USER pa_admin IDENTIFIED BY <i>password</i>;
+   CREATE USER sec_user IDENTIFIED BY <i>password</i>;
+   </pre>
+   Replace <code><i>password</i></code> with a password that is secure.
 
 4. Connect as a user who has the privileges to grant roles and system privileges to other users, and who has been granted the owner authorization for the Oracle System Privilege and Role Management realm. (User <code>SYS</code> has these privileges by default.)
 
    For example:
-   ```
-   CONNECT dba_psmith@<pdb_name>
-   Enter password: <password>
-   ```
+   <pre>
+   CONNECT dba_psmith@<i>pub_name</i>
+   Enter password: <i>password</i>
+   </pre>
    In SQL*Plus, a user who has been granted the <code>DV_OWNER</code> role can check the authorization by querying the <code>DBA_DV_REALM_AUTH</code> data dictionary view. To grant the user authorization, use the <code>DBMS_MACADM.ADD_AUTH_TO_REALM</code> procedure.
 
 5. Grant the following roles and privileges to the users.
@@ -85,10 +82,10 @@ You must create two users, one to create the privilege analysis policy and a sec
 
 1. Connect to the PDB as user <code>pa_admin</code>.
 
-   ```
-   CONNECT pa_admin@<pdb_name>
-   Enter password: <password>
-   ```
+   <pre>
+   CONNECT pa_admin@<i>pub_name</i>
+   Enter password: <i>password</i>
+   </pre>
 
 2. Create the following privilege analysis policy:
 
@@ -116,10 +113,10 @@ You must create two users, one to create the privilege analysis policy and a sec
 
 1. Connect as user <code>sec_user</code>.
 
-   ```
-   CONNECT sec_user@<pdb_name>  
-   Enter password: <password>
-   ```
+   <pre>
+   CONNECT sec_user@<i>pub_name</i>  
+   Enter password: <i>password</i>
+   </pre>
 
 2. Query the <code>HR.EMPLOYEES</code> table to find <code>sec_user</code>'s highest paid coworkers.
 
@@ -146,10 +143,10 @@ You must create two users, one to create the privilege analysis policy and a sec
 
 1. Connect as user <code>pa_admin</code>.
 
-   ```
-   CONNECT pa_admin@<pdb_name>  
-   Enter password: <password>
-   ```
+   <pre>
+   CONNECT pa_admin@<i>pub_name</i>  
+   Enter password: <i>password</i>
+   </pre>
 
 2. Disable the <code>sec_user_capture_pol</code> privilege policy.
 
@@ -216,10 +213,10 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    For example:
 
-   ```
-   CONNECT sec_admin@<pdb_name>
-   Enter password: <password>
-   ```
+   <pre>
+   CONNECT sec_admin@<i>pub_name</i>
+   Enter password: <i>password</i>
+   </pre>
 
 3. Drop the users <code>pa_admin</code> and <code>sec_user</code>.
 
