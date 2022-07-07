@@ -38,8 +38,8 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    For example:
    ```
-   sqlplus sec_admin@<pdb_name>  
-   Enter password: <password>
+   sqlplus sec_admin@<i>pdb_name</i>  
+   Enter password: <i>password</i>
    ```
    To find the available PDBs, query the <code>DBA_PDBS</code> data dictionary  view. To check the current PDB, run the <code>show con_name</code>. command.
 
