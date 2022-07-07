@@ -4,7 +4,7 @@
 
 *REVIEWERS: This LiveLab is based on the 23c feature 46886-1, Schema Privileges. Privilege analysis has been around for a while but has been updated to accommodate this feature.*
 
-This lab shows how to capture a user's schema privilege use for the <code>SELECT ANY TABLE</code> and <code>DELETE ANY TABLE</code> system privileges on the <cod>HR</code> schema.
+This lab shows how to capture a user's schema privilege use for the <code>SELECT ANY TABLE</code> and <code>DELETE ANY TABLE</code> system privileges on the <code>HR</code> schema.
 
 Estimated Time: 15 minutes
 
