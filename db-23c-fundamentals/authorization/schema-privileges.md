@@ -181,7 +181,7 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    ```
    SCH_PRIV          SCHEMA  
-   –---------------  –-------------------  
+   –---------------  –---------------  
    SELECT ANY TABLE  HR  
    ```
 
@@ -194,7 +194,7 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    ```
    SCH_PRIV          SCHEMA  
-   –---------------  –-------------------  
+   –---------------  –---------------  
    DELETE ANY TABLE  HR  
    ```
 
