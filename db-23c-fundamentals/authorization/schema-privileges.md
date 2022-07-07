@@ -82,7 +82,7 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    ```
    CONNECT pa_admin@<pdb_name>
-   Enter password: <password</i)
+   Enter password: <password>
    ```
 
 2. Create the following privilege analysis policy:
@@ -142,7 +142,7 @@ You must create two users, one to create the privilege analysis policy and a sec
 1. Connect as user <code>pa_admin</code>.
 
    ```
-   CONNECT pa_admin@<pdb_name</>  
+   CONNECT pa_admin@<pdb_name>  
    Enter password: <password>
    ```
 
