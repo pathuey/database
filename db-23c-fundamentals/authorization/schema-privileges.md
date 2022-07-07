@@ -37,6 +37,9 @@ You must create two users, one to create the privilege analysis policy and a sec
 1. Log into a PDB as a user who has the <code>CREATE USER</code> system privilege.
 
    For example:
+
+   <p>some text <<br />
+   next line </p>
    ```
    sqlplus sec_admin@<pub_name>  
    Enter password: <password>
