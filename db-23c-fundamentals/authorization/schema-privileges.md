@@ -38,7 +38,7 @@ You must create two users, one to create the privilege analysis policy and a sec
 
    For example:
 
-   <p>some text <<br />
+   <p>some text <br />
    next line </p>
    ```
    sqlplus sec_admin@<pub_name>  
