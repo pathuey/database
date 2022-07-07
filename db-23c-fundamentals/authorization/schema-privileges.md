@@ -233,4 +233,4 @@ You must create two users, one to create the privilege analysis policy and a sec
 ## Acknowledgements
 * **Author** - Patricia Huey, Consulting User Assistance Developer, User Assistance Development
 * **Contributors** - TBA <Name, Group>
-* **Last Updated By/Date** - <Patricia Huey, User Assistance Development, July 2022>
+* **Last Updated By/Date** - Patricia Huey, User Assistance Development, July 2022
