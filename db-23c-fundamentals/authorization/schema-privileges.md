@@ -123,7 +123,7 @@ You must create two users, one to create the privilege analysis policy and a sec
    ```
    SELECT FIRST_NAME, LAST_NAME FROM HR.EMPLOYEES WHERE SALARY > 8000;
    ```
-  Output similar to the following appears:
+   Output similar to the following appears:
 
    ```  
    FIRST_NAME           LAST_NAME  
