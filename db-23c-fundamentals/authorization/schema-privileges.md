@@ -133,8 +133,9 @@ You must create two users, one to create the privilege analysis policy and a sec
    </pre>
    </copy>
    Output similar to the following appears:
-    
-   <pre>FIRST_NAME           LAST_NAME  
+
+   <pre>
+   FIRST_NAME           LAST_NAME  
    -------------------- -------------------------  
    Steven               King  
    Neena                Kochhar  
