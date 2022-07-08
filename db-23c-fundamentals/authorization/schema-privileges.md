@@ -75,11 +75,13 @@ You must create two users, one to create the privilege analysis policy and a sec
    User <code>pa_admin</code> will create the privilege analysis policy that will analyze the database tuning operations that user <code>sec_user</code> will perform.
 
 5. For user <code>sec_user</code>, grant the <code>SELECT ANY TABLE</code> and <code>DELETE ANY TABLE</code> system privileges as schema privileges for the <code>HR</code> schema.
+
     <copy>
     <pre>
     GRANT SELECT ANY TABLE, DELETE ANY TABLE ON SCHEMA HR TO sec_user;
     </pre>
     </copy>
+
 ## Task 2: Create and Enable a Privilege Analysis Policy
 
    User <code>pa_admin</code> must create the and enable the privilege analysis policy.
@@ -131,7 +133,6 @@ You must create two users, one to create the privilege analysis policy and a sec
    </pre>
    </copy>
    Output similar to the following appears:
-
    <pre>  
    FIRST_NAME           LAST_NAME  
    -------------------- -------------------------  
