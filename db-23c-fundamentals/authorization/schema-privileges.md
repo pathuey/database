@@ -47,10 +47,12 @@ You must create two users, one to create the privilege analysis policy and a sec
 
 2. Create the following users:
 
+   <copy>
    <pre>
    CREATE USER pa_admin IDENTIFIED BY <i>password</i>;
    CREATE USER sec_user IDENTIFIED BY <i>password</i>;
    </pre>
+   </copy>
    Replace <code><i>password</i></code> with a password that is secure.
 
 4. Connect as a user who has the privileges to grant roles and system privileges to other users, and who has been granted the owner authorization for the Oracle System Privilege and Role Management realm. (User <code>SYS</code> has these privileges by default.)
