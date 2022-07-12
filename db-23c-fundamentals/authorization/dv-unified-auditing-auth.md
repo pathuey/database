@@ -86,7 +86,7 @@ This lab assumes you have:
 
 	 AUDIT POLICY dv_realm_hr;</pre>
 
-	 Even though the <code>HR</code> is not an administrative user, <code>HR</code> is now able to create and enable audit policies.
+	 Even though the <code>HR</code> user is not an administrative user, <code>HR</code> is now able to create and enable audit policies.
 
 3. User <code>HR</code> does not really need this policy, so disable and then drop the policy. 	 	 
 
