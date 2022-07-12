@@ -106,7 +106,7 @@ This lab assumes you have:
 
    <pre>
 	 NOAUDIT POLICY dv_realm_hr;
-   DROP AUDIT POLICY dv_realm_hr;
+     DROP AUDIT POLICY dv_realm_hr;
    </pre>
 
 ## Task 4: Connect as the <code>DV_OWNER</code> User and Revoke the Unified Audit Authorization   
