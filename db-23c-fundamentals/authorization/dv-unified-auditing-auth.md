@@ -83,7 +83,7 @@ This lab assumes you have:
 1. Connect as user <code>HR</CODE>.
 
    <pre>
-	 CONNECT HR
+	 CONNECT HR@<i>pdb_name</i>
 	 Enter password: <i>password</i>
    </pre>
 
@@ -112,6 +112,8 @@ This lab assumes you have:
 ## Task 4: Connect as the <code>DV_OWNER</code> User and Revoke the Unified Audit Authorization   
 
 1. Connect as the <code>DV_OWNER</code> user.
+
+   For example:
 
    <pre>
 	 CONNECT dba_debra@<i>pdb_name</i>
