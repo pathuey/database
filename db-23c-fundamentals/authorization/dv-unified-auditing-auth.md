@@ -97,7 +97,7 @@ This lab assumes you have:
 
 3. Next, enable the unified audit policy.
    <pre>   
-	   AUDIT POLICY dv_realm_hr;
+	 AUDIT POLICY dv_realm_hr;
    </pre>
 
 	 Even though the <code>HR</code> user is not an administrative user, <code>HR</code> is now able to create and enable audit policies.
