@@ -34,7 +34,8 @@ This lab assumes you have:
 
    <pre>
 	 sqlplus system@<i>pdb_name</i>
-	 Enter password: <i>password</i></pre>
+	 Enter password: <i>password</i>
+   </pre>
 
 2. Execute the following query:
 
@@ -44,7 +45,8 @@ This lab assumes you have:
 
 	 <pre>
 	 DV_CONFIGURE_STATUS  TRUE
-	 DV_ENABLE_STATUS     TRUE </pre>
+	 DV_ENABLE_STATUS     TRUE
+   </pre>
 
 	 If the output is <code>FALSE</code>, then you must enable Oracle Database Vault. See [Registering Oracle Database Vault](http://st-doc.us.oracle.com/id_common/review/docbuilder/html/F46691_01/getting-started-with-oracle-database-vault.htm#GUID-68558E32-ABD0-4495-8677-4F9E09283E5D).
 
@@ -57,7 +59,8 @@ This lab assumes you have:
 
 	 <pre>
 	 CONNECT dba_debra@<i>pdb_name</i>
-	 Enter password: <i>password</i> </pre>
+	 Enter password: <i>password</i>
+   </pre>
 
 2. Execute the <code>DVSYS.DBMS_MACADM.AUTHORIZE_AUDIT_ADMIN</code> to grant the <code>HR</code> user auditing authorization.
 
@@ -75,16 +78,18 @@ This lab assumes you have:
 
    <pre>
 	 CONNECT HR
-	 Enter password: <i>password</i> </pre>
+	 Enter password: <i>password</i>
+   </pre>
 
 2. Create and enable the following unified audit policy, which is specific to Oracle Database Vault.
 
    <pre>
 	 CREATE AUDIT POLICY dv_realm_hr
-     ACTIONS SELECT, UPDATE, DELETE
-     ACTIONS COMPONENT=DV Realm Violation ON "Oracle Database Vault";
+   ACTIONS SELECT, UPDATE, DELETE
+   ACTIONS COMPONENT=DV Realm Violation ON "Oracle Database Vault";
 
-	 AUDIT POLICY dv_realm_hr;</pre>
+	 AUDIT POLICY dv_realm_hr;
+   </pre>
 
 	 Even though the <code>HR</code> user is not an administrative user, <code>HR</code> is now able to create and enable audit policies.
 
@@ -93,7 +98,8 @@ This lab assumes you have:
    <pre>
 	 NOAUDIT POLICY dv_realm_hr;
 
-   DROP AUDIT POLICY dv_realm_hr; </pre>
+   DROP AUDIT POLICY dv_realm_hr;
+   </pre>
 
 ## Task 4: Connect as the <code>DV_OWNER</code> User and Revoke the Unified Audit Authorization   
 
@@ -101,7 +107,8 @@ This lab assumes you have:
 
    <pre>
 	 CONNECT dba_debra@<i>pdb_name</i>
-	 Enter password: <i>password</i></pre>
+	 Enter password: <i>password</i>
+   </pre>
 
 2. Revoke the unified audit authorization from the <code>HR</code> user.
 
