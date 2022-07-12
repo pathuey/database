@@ -39,7 +39,9 @@ This lab assumes you have:
 
 2. Execute the following query:
 
-   <pre>SELECT * FROM DBA_DV_STATUS;</pre>
+   <pre>
+   SELECT * FROM DBA_DV_STATUS;
+   </pre>
 
 	 The output should include the following lines:
 
@@ -64,11 +66,15 @@ This lab assumes you have:
 
 2. Execute the <code>DVSYS.DBMS_MACADM.AUTHORIZE_AUDIT_ADMIN</code> to grant the <code>HR</code> user auditing authorization.
 
-   <pre>EXEC DBMS_MACADM.AUTHORIZE_AUDIT_ADMIN ('HR');</pre>
+   <pre>
+   EXEC DBMS_MACADM.AUTHORIZE_AUDIT_ADMIN ('HR');
+   </pre>
 
 3. To ensure that <code>HR</code> has been granted authorization, query the <code>DBA_DV_AUDIT_ADMIN_AUTH</code> data dictionary view.
 
-   <pre>SELECT * FROM DBA_DV_AUDIT_ADMIN_AUTH WHERE GRANTEE = 'HR'; </pre>
+   <pre>
+   SELECT * FROM DBA_DV_AUDIT_ADMIN_AUTH WHERE GRANTEE = 'HR';
+   </pre>
 
 	 User <code>HR</code> should appear in the output.
 
@@ -85,8 +91,8 @@ This lab assumes you have:
 
    <pre>
 	 CREATE AUDIT POLICY dv_realm_hr
-   ACTIONS SELECT, UPDATE, DELETE
-   ACTIONS COMPONENT=DV Realm Violation ON "Oracle Database Vault";
+     ACTIONS SELECT, UPDATE, DELETE
+     ACTIONS COMPONENT=DV Realm Violation ON "Oracle Database Vault";
    </pre>
 
 3. Next, enable the unified audit policy.
@@ -117,7 +123,9 @@ This lab assumes you have:
 
 2. Revoke the unified audit authorization from the <code>HR</code> user.
 
-   <pre>EXEC DBMS_MACADM.UNAUTHORIZE_AUDIT_ADMIN ('HR');	 </pre>
+   <pre>
+   EXEC DBMS_MACADM.UNAUTHORIZE_AUDIT_ADMIN ('HR');
+   </pre>
 
 	 Now, user <code>HR</code> can no longer create and manage unified audit policies.
 
