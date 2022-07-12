@@ -179,12 +179,12 @@ This lab assumes you have:
    Enter password: <i>password</i>
    </pre>
 
-2. Revoke the <code>AUDIT_ADMIN</code> role from <code>HR<code>.  
+2. Revoke the <code>AUDIT_ADMIN</code> role from <code>HR</code>.  
 
    <pre>
      REVOKE AUDIT_ADMIN FROM HR;
    </pre>
-   
+
 ## Learn More
 
 *REVIEWERS: The following link goes to the 23c internal draft of DVADM but will be replaced with the public library link once 23c is released.*
