@@ -81,23 +81,28 @@ This lab assumes you have:
 	 Enter password: <i>password</i>
    </pre>
 
-2. Create and enable the following unified audit policy, which is specific to Oracle Database Vault.
+2. Create the following unified audit policy, which is specific to Oracle Database Vault.
 
    <pre>
 	 CREATE AUDIT POLICY dv_realm_hr
    ACTIONS SELECT, UPDATE, DELETE
    ACTIONS COMPONENT=DV Realm Violation ON "Oracle Database Vault";
+   </pre>
 
+3. Next, enable the unified audit policy.
+
+   <pre>   
 	 AUDIT POLICY dv_realm_hr;
    </pre>
 
 	 Even though the <code>HR</code> user is not an administrative user, <code>HR</code> is now able to create and enable audit policies.
 
-3. User <code>HR</code> does not really need this policy, so disable and then drop the policy. 	 	 
+4. User <code>HR</code> does not really need this policy, so disable and then drop the policy. 	 	 
 
    <pre>
 	 NOAUDIT POLICY dv_realm_hr;
-
+   </pre>
+   <pre>
    DROP AUDIT POLICY dv_realm_hr;
    </pre>
 
