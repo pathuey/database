@@ -136,7 +136,7 @@ This lab assumes you have:
 	 Enter password: <i>password</i>
    </pre>
 
-2. Create the unified audit policy.
+2. Try to create the unified audit policy again.
 
    <pre>
 	 CREATE AUDIT POLICY dv_realm_hr
