@@ -184,6 +184,7 @@ This lab assumes you have:
    <pre>
      REVOKE AUDIT_ADMIN FROM HR;
    </pre>
+   
 ## Learn More
 
 *REVIEWERS: The following link goes to the 23c internal draft of DVADM but will be replaced with the public library link once 23c is released.*
