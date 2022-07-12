@@ -96,7 +96,6 @@ This lab assumes you have:
    </pre>
 
 3. Next, enable the unified audit policy.
-
    <pre>   
 	 AUDIT POLICY dv_realm_hr;
    </pre>
@@ -107,8 +106,6 @@ This lab assumes you have:
 
    <pre>
 	 NOAUDIT POLICY dv_realm_hr;
-   </pre>
-   <pre>
    DROP AUDIT POLICY dv_realm_hr;
    </pre>
 
