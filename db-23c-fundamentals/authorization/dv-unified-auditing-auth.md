@@ -21,7 +21,7 @@ In this lab, you will:
 * Connect as the <code>DV_OWNER</code> user and then revoke unified auditing authorization from <code>HR</code>.
 * Connect as user <code>SYS</code> and then revoke the <code>AUDIT_ADMIN</code> from <code>HR</code>.
 
-### Prerequisites (Optional)
+### Prerequisites
 
 This lab assumes you have:
 * An Oracle account in a database that has Oracle Database Vault enabled
