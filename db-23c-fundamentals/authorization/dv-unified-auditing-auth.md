@@ -5,11 +5,11 @@
 
 This LiveLab explores how to authorize an Oracle Database user to create unified audit policies in an Oracle Database Vault environment.
 
-Estimated Time: n minutes
+Estimated Time: 15 minutes
 
 ### About Unified Auditing Authorization in an Oracle Database Vault Environment)
 
-In earlier releases of Oracle Database, an Oracle Database Vault user had to create command rules if they wanted to use audit-related PL/SQL statements such as CREATE AUDIT POLICY. Starting in release 23c, an Oracle Database Vault admnistrator (that is, a user who has the <code>DV_OWNER</code> or <code>DV_ADMIN</code> role) can authorize users in Database Vault to have the <code>AUDIT_ADMIN</code> or <code>AUDIT_VIEWER</code> role privileges, similar to authorizing Oracle Data Pump users or Oracle Database Replay users to work in an Oracle Database Vault environment.
+In earlier releases of Oracle Database, an Oracle Database Vault user had to create command rules if they wanted to use audit-related PL/SQL statements such as <code>CREATE AUDIT POLICY</code>. Starting in release 23c, an Oracle Database Vault admnistrator (that is, a user who has the <code>DV_OWNER</code> or <code>DV_ADMIN</code> role) can authorize users in Database Vault to have the <code>AUDIT_ADMIN</code> or <code>AUDIT_VIEWER</code> role privileges, similar to authorizing Oracle Data Pump users or Oracle Database Replay users to work in an Oracle Database Vault environment.
 
 ### Objectives
 
@@ -28,7 +28,7 @@ This lab assumes you have:
 * Familiarity with Oracle Database Vault
 
 
-## Task 1: Ensure that Oracle Database Vault Is Enabled
+## Task 1: Ensure That Oracle Database Vault Is Enabled
 
 1. Log into a PDB as a user <code>SYSTEM</code>.
 
@@ -55,19 +55,16 @@ This lab assumes you have:
 
    For example:
 
-	 <pre>
-	 CONNECT dba_debra@<i>pdb_name</i>
+	 <pre>CONNECT dba_debra@<i>pdb_name</i>
 	 Enter password: <i>password</i> </pre>
 
 2. Execute the <code>DVSYS.DBMS_MACADM.AUTHORIZE_AUDIT_ADMIN</code> to grant the <code>HR</code> user auditing authorization.
 
-   <pre>
-	 EXEC DBMS_MACADM.AUTHORIZE_AUDIT_ADMIN ('HR'); </pre>
+   <pre>EXEC DBMS_MACADM.AUTHORIZE_AUDIT_ADMIN ('HR');</pre>
 
 3. To ensure that <code>HR</code> has been granted authorization, query the <code>DBA_DV_AUDIT_ADMIN_AUTH</code> data dictionary view.
 
-   <pre>
-	 SELECT * FROM DBA_DV_AUDIT_ADMIN_AUTH WHERE GRANTEE = 'HR'; </pre>
+   <pre>SELECT * FROM DBA_DV_AUDIT_ADMIN_AUTH WHERE GRANTEE = 'HR'; </pre>
 
 	 User <code>HR</code> should appear in the output.
 
@@ -75,14 +72,12 @@ This lab assumes you have:
 
 1. Connect as user <code>HR</CODE>.
 
-   <pre>
-	 CONNECT HR
+   <pre>CONNECT HR
 	 Enter password: <i>password</i> </pre>
 
 2. Create and enable the following unified audit policy, which is specific to Oracle Database Vault.
 
-   <pre>
-	 CREATE AUDIT POLICY dv_realm_hr
+   <pre>CREATE AUDIT POLICY dv_realm_hr
    ACTIONS SELECT, UPDATE, DELETE
    ACTIONS COMPONENT=DV Realm Violation ON "Oracle Database Vault";
 
@@ -92,8 +87,7 @@ This lab assumes you have:
 
 3. User <code>HR</code> does not really need this policy, so disable and then drop the policy. 	 	 
 
-   <pre>
-	 NOAUDIT POLICY dv_realm_hr;
+   <pre>NOAUDIT POLICY dv_realm_hr;
 
    DROP AUDIT POLICY dv_realm_hr; </pre>
 
@@ -101,15 +95,12 @@ This lab assumes you have:
 
 1. Connect as the <code>DV_OWNER</code> user.
 
-   <pre>
-  CONNECT dba_debra@<i>pdb_name</i>
+   <pre>CONNECT dba_debra@<i>pdb_name</i>
   Enter password: <i>password</i></pre>
 
 2. Revoke the unified audit authorization from the <code>HR</code> user.
 
-   <pre>
-	 EXEC DBMS_MACADM.UNAUTHORIZE_AUDIT_ADMIN ('HR');
-	 </pre>
+   <pre>EXEC DBMS_MACADM.UNAUTHORIZE_AUDIT_ADMIN ('HR');	 </pre>
 
 	 Now, user <code>HR</code> can no longer create and manage unified audit policies.
 
