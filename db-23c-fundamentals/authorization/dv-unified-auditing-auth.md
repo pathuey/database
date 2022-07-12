@@ -81,8 +81,8 @@ This lab assumes you have:
 
    <pre>
 	 CREATE AUDIT POLICY dv_realm_hr
-   ACTIONS SELECT, UPDATE, DELETE
-   ACTIONS COMPONENT=DV Realm Violation ON "Oracle Database Vault";
+     ACTIONS SELECT, UPDATE, DELETE
+     ACTIONS COMPONENT=DV Realm Violation ON "Oracle Database Vault";
 
 	 AUDIT POLICY dv_realm_hr;</pre>
 
