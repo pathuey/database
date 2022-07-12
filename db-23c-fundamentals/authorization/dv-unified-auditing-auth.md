@@ -49,7 +49,7 @@ This lab assumes you have:
 	 DV_ENABLE_STATUS     TRUE
    </pre>
 
-	 If the output is <code>FALSE</code>, then you must enable Oracle Database Vault. See [Registering Oracle Database Vault](http://st-doc.us.oracle.com/id_common/review/docbuilder/html/F46691_01/getting-started-with-oracle-database-vault.htm#GUID-68558E32-ABD0-4495-8677-4F9E09283E5D).
+	 If the output is <code>FALSE</code>, then you must enable Oracle Database Vault. See [Registering Oracle Database Vault in the CDB Root](http://st-doc.us.oracle.com/id_common/review/docbuilder/html/F46691_01/getting-started-with-oracle-database-vault.htm#GUID-5CC1B6F0-FDDB-4183-8233-0AC6B208667A).
 
 
 ## Task 2: Authorize User <code>HR</code> to Create Unified Audit Policies
