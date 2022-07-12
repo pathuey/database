@@ -36,6 +36,14 @@ This lab assumes you have:
 	 Enter password: <i>password</i>
    </pre>
 
+   To find a list of available PDBs, query the <code>DBA_PDBS</code> data dictionary view:
+
+   <pre>
+     SELECT PDB_NAME FROM DBA_PDBS;
+   </pre>
+
+   To check the current PDB, run the <code>show con_name</code> command.
+
 2. Execute the following query:
 
    <pre>

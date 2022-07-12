@@ -43,7 +43,13 @@ You must create two users, one to create the privilege analysis policy and a sec
    Enter password: <i>password</i>
    </pre>
 
-   To find the available PDBs, query the <code>DBA_PDBS</code> data dictionary  view. To check the current PDB, run the <code>show con_name</code>. command.
+   To find the available PDBs, query the <code>DBA_PDBS</code> data dictionary view.
+
+   <pre>
+     SELECT PDB_NAME FROM DBA_PDBS;
+   </pre>
+
+   To check the current PDB, run the <code>show con_name</code> command.
 
 2. Create the following users:
 
