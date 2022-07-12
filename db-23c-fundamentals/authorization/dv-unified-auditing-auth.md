@@ -18,7 +18,6 @@ In this lab, you will:
 * As this user, authorize user <code>HR</code> user to have unified auditing authorization.
 * Connect as <code>HR</code> and create and drop a unified audit policy.
 * Connect as the <code>DV_OWNER</code> user and then revoke unified auditing authorization from <code>HR</code>.
-* Connect as the <code>DV_OWNER</code> user and then revoke unified auditing authorization from <code>HR</code>.
 
 ### Prerequisites (Optional)
 
