@@ -55,7 +55,8 @@ This lab assumes you have:
 
    For example:
 
-	 <pre>CONNECT dba_debra@<i>pdb_name</i>
+	 <pre>
+	 CONNECT dba_debra@<i>pdb_name</i>
 	 Enter password: <i>password</i> </pre>
 
 2. Execute the <code>DVSYS.DBMS_MACADM.AUTHORIZE_AUDIT_ADMIN</code> to grant the <code>HR</code> user auditing authorization.
@@ -72,12 +73,14 @@ This lab assumes you have:
 
 1. Connect as user <code>HR</CODE>.
 
-   <pre>CONNECT HR
+   <pre>
+	 CONNECT HR
 	 Enter password: <i>password</i> </pre>
 
 2. Create and enable the following unified audit policy, which is specific to Oracle Database Vault.
 
-   <pre>CREATE AUDIT POLICY dv_realm_hr
+   <pre>
+	 CREATE AUDIT POLICY dv_realm_hr
    ACTIONS SELECT, UPDATE, DELETE
    ACTIONS COMPONENT=DV Realm Violation ON "Oracle Database Vault";
 
@@ -87,7 +90,8 @@ This lab assumes you have:
 
 3. User <code>HR</code> does not really need this policy, so disable and then drop the policy. 	 	 
 
-   <pre>NOAUDIT POLICY dv_realm_hr;
+   <pre>
+	 NOAUDIT POLICY dv_realm_hr;
 
    DROP AUDIT POLICY dv_realm_hr; </pre>
 
@@ -95,8 +99,9 @@ This lab assumes you have:
 
 1. Connect as the <code>DV_OWNER</code> user.
 
-   <pre>CONNECT dba_debra@<i>pdb_name</i>
-  Enter password: <i>password</i></pre>
+   <pre>
+	 CONNECT dba_debra@<i>pdb_name</i>
+	 Enter password: <i>password</i></pre>
 
 2. Revoke the unified audit authorization from the <code>HR</code> user.
 
