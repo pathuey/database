@@ -1,106 +1,124 @@
 # Enabling Unified Auditing Authorization in an Oracle Database Vault Environment
-*REVIEWERS: REVIEWERS: This LiveLab is based on the 23c feature 85595-1, Ability to Control Authorizations for Unified Auditing*
+*REVIEWERS: This LiveLab is based on the 23c feature 85595-1, Ability to Control Authorizations for Unified Auditing*
 
 ## Introduction
 
-*Describe the lab in one or two sentences, for example:* This lab walks you through the steps to ...
+This LiveLab explores how to authorize an Oracle Database user to create unified audit policies in an Oracle Database Vault environment.
 
 Estimated Time: n minutes
 
-### About Product/Technology (Optional)
-Enter background information here about the technology/feature or product used in this lab - no need to repeat what you covered in the introduction.
+### About Unified Auditing Authorization in an Oracle Database Vault Environment)
+
+In earlier releases of Oracle Database, an Oracle Database Vault user had to create command rules if they wanted to use audit-related PL/SQL statements such as CREATE AUDIT POLICY. Starting in release 23c, an Oracle Database Vault admnistrator (that is, a user who has the <code>DV_OWNER</code> or <code>DV_ADMIN</code> role) can authorize users in Database Vault to have the <code>AUDIT_ADMIN</code> or <code>AUDIT_VIEWER</code> role privileges, similar to authorizing Oracle Data Pump users or Oracle Database Replay users to work in an Oracle Database Vault environment.
 
 ### Objectives
 
-*List objectives for this lab*
-
 In this lab, you will:
-* Objective 1
-* Objective 2
-* Objective 3
+* Log in to SQL*Plus as a user who has been granted the <code>DV_OWNER</code> role.
+* As this user, authorize user <code>HR</code> user to have unified auditing authorization.
+* Connect as <code>HR</code> and create and drop a unified audit policy.
+* Connect as the <code>DV_OWNER</code> user and then revoke unified auditing authorization from <code>HR</code>.
+* Connect as the <code>DV_OWNER</code> user and then revoke unified auditing authorization from <code>HR</code>.
 
 ### Prerequisites (Optional)
 
-*List the prerequisites for this lab using the format below. Fill in whatever knowledge, accounts, etc. is needed to complete the lab. **Do NOT list** each previous lab as a prerequisite.*
-
 This lab assumes you have:
-* An Oracle account
-* All previous labs successfully completed
+* An Oracle account in a database that has Oracle Database Vault enabled
+* Access to the HR schema
+* Familiarity with Oracle Database Vault
 
-*This is the "fold" - below items are collapsed by default*
 
-## Task 1: <what is the action in this step>
+## Task 1: Ensure that Oracle Database Vault Is Enabled
 
-(optional) Step 1 opening paragraph.
+1. Log into a PDB as a user <code>SYSTEM</code>.
 
-1. Sub step 1
+   <pre>
+	 sqlplus system@<i>pdb_name</i>
+	 Enter password: <i>password</i></pre>
 
-		![Image alt text](images/sample1.png)
+2. Execute the following query:
 
-  To create a link to local file you want the reader to download, use the following format.
+   <pre>SELECT * FROM DBA_DV_STATUS;</pre>
 
-	> **Note:** _The filename must be in lowercase letters and CANNOT include any spaces._
+	 The output should include the following lines:
 
-  Download the [starter file](files/starter-file.sql) SQL code.
+	 <pre>
+	 DV_CONFIGURE_STATUS  TRUE
+	 DV_ENABLE_STATUS     TRUE </pre>
 
-	When the file type is recognized by the browser, it will attempt to render it. So you can use the following format to force the download dialog box.
+	 If the output is <code>FALSE</code>, then you must enable Oracle Database Vault. See [Registering Oracle Database Vault](http://st-doc.us.oracle.com/id_common/review/docbuilder/html/F46691_01/getting-started-with-oracle-database-vault.htm#GUID-68558E32-ABD0-4495-8677-4F9E09283E5D).
 
-	> **Note:** _The filename must be in lowercase letters and CANNOT include any spaces._
 
-	Download the [sample JSON code](files/sample.json?download=1).
+## Task 2: Authorize User <code>HR</code> to Create Unified Audit Policies
 
-  *IMPORTANT: do not include zip files, CSV, PDF, PSD, JAR, WAR, EAR, bin or exe files - you must have those objects stored somewhere else. We highly recommend using Oracle Cloud Object Store and creating a PAR URL instead. See [Using Pre-Authenticated Requests](https://docs.cloud.oracle.com/en-us/iaas/Content/Object/Tasks/usingpreauthenticatedrequests.htm)*
+1. Connect to the PDB as a user who has been granted the <code>DV_OWNER</code> role.
 
-2. Sub step 2
+   For example:
 
-    ![Image alt text](images/sample1.png)
+	 <pre>
+	 CONNECT dba_debra@<i>pdb_name</i>
+	 Enter password: <i>password</i> </pre>
 
-4. Example with inline navigation icon ![Image alt text](images/sample2.png) click **Navigation**.
+2. Execute the <code>DVSYS.DBMS_MACADM.AUTHORIZE_AUDIT_ADMIN</code> to grant the <code>HR</code> user auditing authorization.
 
-5. Example with bold **text**.
+   <pre>
+	 EXEC DBMS_MACADM.AUTHORIZE_AUDIT_ADMIN ('HR'); </pre>
 
-  If you add another paragraph, add 3 spaces before the line.
+3. To ensure that <code>HR</code> has been granted authorization, query the <code>DBA_DV_AUDIT_ADMIN_AUTH</code> data dictionary view.
 
-## Task 2: <what is the action in this step>
+   <pre>
+	 SELECT * FROM DBA_DV_AUDIT_ADMIN_AUTH WHERE GRANTEE = 'HR'; </pre>
 
-1. Sub step 1 - tables sample
+	 User <code>HR</code> should appear in the output.
 
-  Use tables sparingly:
+## Task 3: Connect as <code>HR</code> and Create a Simple Unified Audit Policy, then Drop This Policy
 
-  | Column 1 | Column 2 | Column 3 |
-  | --- | --- | --- |
-  | 1 | Some text or a link | More text  |
-  | 2 |Some text or a link | More text |
-  | 3 | Some text or a link | More text |
+1. Connect as user <code>HR</CODE>.
 
-2. You can also include bulleted lists - make sure to indent 4 spaces:
+   <pre>
+	 CONNECT HR
+	 Enter password: <i>password</i> </pre>
 
-    - List item 1
-    - List item 2
+2. Create and enable the following unified audit policy, which is specific to Oracle Database Vault.
 
-3. Code examples
+   <pre>
+	 CREATE AUDIT POLICY dv_realm_hr
+   ACTIONS SELECT, UPDATE, DELETE
+   ACTIONS COMPONENT=DV Realm Violation ON "Oracle Database Vault";
 
-    ```
-    Adding code examples
-  	Indentation is important for the code example to appear inside the step
-    Multiple lines of code
-  	<copy>Enclose the text you want to copy in <copy></copy>.</copy>
-    ```
+	 AUDIT POLICY dv_realm_hr;</pre>
 
-4. Code examples that include variables
+	 Even though the <code>HR</code> is not an administrative user, <code>HR</code> is now able to create and enable audit policies.
 
-	```
-  <copy>ssh -i <ssh-key-file></copy>
-  ```
+3. User <code>HR</code> does not really need this policy, so disable and then drop the policy. 	 	 
+
+   <pre>
+	 NOAUDIT POLICY dv_realm_hr;
+
+   DROP AUDIT POLICY dv_realm_hr; </pre>
+
+## Task 4: Connect as the <code>DV_OWNER</code> User and Revoke the Unified Audit Authorization   
+
+1. Connect as the <code>DV_OWNER</code> user.
+
+   <pre>
+  CONNECT dba_debra@<i>pdb_name</i>
+  Enter password: <i>password</i></pre>
+
+2. Revoke the unified audit authorization from the <code>HR</code> user.
+
+   <pre>
+	 EXEC DBMS_MACADM.UNAUTHORIZE_AUDIT_ADMIN ('HR');
+	 </pre>
+
+	 Now, user <code>HR</code> can no longer create and manage unified audit policies.
 
 ## Learn More
 
-*(optional - include links to docs, white papers, blogs, etc)*
+*REVIEWERS: The following link goes to the 23c internal draft of DVADM but will be replaced with the public library link once 23c is released.*
 
-* [URL text 1](http://docs.oracle.com)
-* [URL text 2](http://docs.oracle.com)
+* [Using Oracle Database Auditing with Oracle Database Vault](http://st-doc.us.oracle.com/id_common/review/docbuilder/html/F46691_01/dba-operations-in-an-oracle-database-vault-environment.htm#GUID-389D36D3-32F8-4451-965E-76448CDBBB43)
 
 ## Acknowledgements
-* **Author** - <Name, Title, Group>
-* **Contributors** -  <Name, Group> -- optional
-* **Last Updated By/Date** - <Name, Group, Month Year>
+* **Author** - Patricia Huey, Consulting User Assistance Developer, User Assistance Development
+* **Last Updated By/Date** - Patricia Huey, User Assistance Development, July 2022
