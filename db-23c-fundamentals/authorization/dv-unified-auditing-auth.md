@@ -14,10 +14,12 @@ In earlier releases of Oracle Database, an Oracle Database Vault user had to cre
 ### Objectives
 
 In this lab, you will:
-* Log in to SQL*Plus as a user who has been granted the <code>DV_OWNER</code> role.
-* As this user, authorize user <code>HR</code> user to have unified auditing authorization.
-* Connect as <code>HR</code> and create and drop a unified audit policy.
+* Log in to SQL*Plus as user <code>SYS</code> and then grant the <code>AUDIT_ADMIN</code> to user <code>HR</code> in a PDB.
+* As user <code>HR</code>, try to create a unified audit policy.
+* Connect as a user who has been granted the <code>DV_OWNER</code> role, and then authorize <code>HR</code> user to have unified auditing authorization.
+* Connect as <code>HR</code> and try creating a unified audit policy again.
 * Connect as the <code>DV_OWNER</code> user and then revoke unified auditing authorization from <code>HR</code>.
+* Connect as user <code>SYS</code> and then revoke the <code>AUDIT_ADMIN</code> from <code>HR</code>.
 
 ### Prerequisites (Optional)
 
@@ -59,15 +61,55 @@ This lab assumes you have:
 
 	 If the output is <code>FALSE</code>, then you must enable Oracle Database Vault. See [Registering Oracle Database Vault](http://st-doc.us.oracle.com/id_common/review/docbuilder/html/F46691_01/getting-started-with-oracle-database-vault.htm#GUID-68558E32-ABD0-4495-8677-4F9E09283E5D). You will need to register Oracle Database Vault in the CDB root, and for the PDB in which you want to work.
 
+## Task 2: Grant the <code>AUDIT_ADMIN</code> Role to User <code>HR</code>
 
-## Task 2: Authorize User <code>HR</code> to Create Unified Audit Policies
+1. Connect as user <code>SYS</code> to the PDB where user <code>HR</code> resides.
+
+   <pre>
+	 sqlplus sys@<i>pdb_name</i> as sysdba
+	 Enter password: <i>password</i>
+   </pre>
+
+2. Grant the <code>AUDIT_ADMIN</code> role to <code>HR</code>.
+
+   <pre>
+     GRANT AUDIT_ADMIN TO HR;
+   </pre>
+
+## Task 3: As User <code>HR</code>, Try Creating a Unified Audit POLICY
+
+1. Connect to the PDB as user <code>HR</code>.
+
+   <pre>
+   CONNECT HR@<i>pdb_name</i>
+   Enter password: <i>password</i>
+   </pre>
+
+2. Try to create a unified audit policy.
+
+   <pre>
+   CREATE AUDIT POLICY dv_realm_hr
+     ACTIONS SELECT, UPDATE, DELETE
+     ACTIONS COMPONENT=DV Realm Violation ON "Oracle Database Vault";
+   </pre>
+
+   The following error message appears:
+
+   <pre>   
+   ERROR at line 1:
+   ORA-01031: insufficient privileges
+   </pre>
+
+   Alas, even though user <code>HR</code> has the <code>AUDIT_ADMIN</code>, this user cannot create unified audit policies in Oracle Database Vault.
+
+## Task 4: Authorize User <code>HR</code> to Create Unified Audit Policies
 
 1. Connect to the PDB as a user who has been granted the <code>DV_OWNER</code> role.
 
    For example:
 
 	 <pre>
-	 CONNECT dba_debra@<i>pdb_name</i>
+	 CONNECT c##sec_admin_owen@<i>pdb_name</i>
 	 Enter password: <i>password</i>
    </pre>
 
@@ -83,9 +125,9 @@ This lab assumes you have:
      SELECT * FROM DBA_DV_AUDIT_ADMIN_AUTH WHERE GRANTEE = 'HR';
    </pre>
 
-	 User <code>HR</code> should appear in the output.
+	 User <code>HR</code> should appear in the output for the <code>GRANTEE</code> column.
 
-## Task 3: Connect as <code>HR</code> and Create a Simple Unified Audit Policy, then Drop This Policy
+## Task 5: Connect as <code>HR</code> and Try Creating the Audit Policy Again
 
 1. Connect as user <code>HR</CODE>.
 
@@ -94,7 +136,7 @@ This lab assumes you have:
 	 Enter password: <i>password</i>
    </pre>
 
-2. Create the following unified audit policy, which is specific to Oracle Database Vault.
+2. Create the unified audit policy.
 
    <pre>
 	 CREATE AUDIT POLICY dv_realm_hr
@@ -102,28 +144,21 @@ This lab assumes you have:
      ACTIONS COMPONENT=DV Realm Violation ON "Oracle Database Vault";
    </pre>
 
-3. Next, enable the unified audit policy.
-   <pre>   
-	 AUDIT POLICY dv_realm_hr;
-   </pre>
+   This time, you are able to create the policy because user <code>HR</code> has been properly authorized in Oracle Database Vault.
 
-	 Even though the <code>HR</code> user is not an administrative user, <code>HR</code> is now able to create and enable audit policies.
 
-4. User <code>HR</code> does not really need this policy, so disable and then drop the policy. 	 	 
+4. User <code>HR</code> does not really need this policy, so drop the policy. 	 	 
 
    <pre>
-	 NOAUDIT POLICY dv_realm_hr;
      DROP AUDIT POLICY dv_realm_hr;
    </pre>
 
-## Task 4: Connect as the <code>DV_OWNER</code> User and Revoke the Unified Audit Authorization   
+## Task 6: Revoke the Unified Audit Authorization from User <code>HR</code>   
 
 1. Connect as the <code>DV_OWNER</code> user.
 
-   For example:
-
    <pre>
-	 CONNECT dba_debra@<i>pdb_name</i>
+	 CONNECT c##sec_admin_owen@<i>pdb_name</i>
 	 Enter password: <i>password</i>
    </pre>
 
@@ -133,8 +168,22 @@ This lab assumes you have:
      EXEC DBMS_MACADM.UNAUTHORIZE_AUDIT_ADMIN ('HR');
    </pre>
 
-	 Now, user <code>HR</code> can no longer create and manage unified audit policies.
+	 Now, user <code>HR</code> can no longer create and manage unified audit policies in Oracle Database Vault.
 
+## Task 7: Revoke the <code>AUDIT_ADMIN</code> Role from <code>HR</code>
+
+1. Connect as user <code>SYS</code> with the <code>SYSDBA</code>.
+
+   <pre>
+   CONNECT SYS@<i>pdb_name</i> AS SYSDBA
+   Enter password: <i>password</i>
+   </pre>
+
+2. Revoke the <code>AUDIT_ADMIN</code> role from <code>HR<code>.  
+
+   <pre>
+     REVOKE AUDIT_ADMIN FROM HR;
+   </pre>
 ## Learn More
 
 *REVIEWERS: The following link goes to the 23c internal draft of DVADM but will be replaced with the public library link once 23c is released.*
