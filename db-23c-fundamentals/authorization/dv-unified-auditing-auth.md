@@ -61,7 +61,7 @@ This lab assumes you have:
 
 	 If the output is <code>FALSE</code>, then you must enable Oracle Database Vault. See [Registering Oracle Database Vault](http://st-doc.us.oracle.com/id_common/review/docbuilder/html/F46691_01/getting-started-with-oracle-database-vault.htm#GUID-68558E32-ABD0-4495-8677-4F9E09283E5D). You will need to register Oracle Database Vault in the CDB root, and for the PDB in which you want to work.
 
-## Task 2: Grant the <code>AUDIT_ADMIN</code> Role to User <code>HR</code>
+## Task 2: Grant the AUDIT_ADMIN Role to User HR
 
 1. Connect as user <code>SYS</code> to the PDB where user <code>HR</code> resides.
 
@@ -76,7 +76,7 @@ This lab assumes you have:
      GRANT AUDIT_ADMIN TO HR;
    </pre>
 
-## Task 3: As User <code>HR</code>, Try Creating a Unified Audit POLICY
+## Task 3: As User HR, Try Creating a Unified Audit Policy
 
 1. Connect to the PDB as user <code>HR</code>.
 
@@ -102,7 +102,7 @@ This lab assumes you have:
 
    Alas, even though user <code>HR</code> has the <code>AUDIT_ADMIN</code>, this user cannot create unified audit policies in Oracle Database Vault.
 
-## Task 4: Authorize User <code>HR</code> to Create Unified Audit Policies
+## Task 4: Authorize User HR to Create Unified Audit Policies
 
 1. Connect to the PDB as a user who has been granted the <code>DV_OWNER</code> role.
 
@@ -127,7 +127,7 @@ This lab assumes you have:
 
 	 User <code>HR</code> should appear in the output for the <code>GRANTEE</code> column.
 
-## Task 5: Connect as <code>HR</code> and Try Creating the Audit Policy Again
+## Task 5: Connect as HR and Try Creating the Audit Policy Again
 
 1. Connect as user <code>HR</CODE>.
 
@@ -153,7 +153,7 @@ This lab assumes you have:
      DROP AUDIT POLICY dv_realm_hr;
    </pre>
 
-## Task 6: Revoke the Unified Audit Authorization from User <code>HR</code>   
+## Task 6: Revoke the Unified Audit Authorization from User HR   
 
 1. Connect as the <code>DV_OWNER</code> user.
 
@@ -170,7 +170,7 @@ This lab assumes you have:
 
 	 Now, user <code>HR</code> can no longer create and manage unified audit policies in Oracle Database Vault.
 
-## Task 7: Revoke the <code>AUDIT_ADMIN</code> Role from <code>HR</code>
+## Task 7: Revoke the AUDIT_ADMI Role from HR
 
 1. Connect as user <code>SYS</code> with the <code>SYSDBA</code>.
 
