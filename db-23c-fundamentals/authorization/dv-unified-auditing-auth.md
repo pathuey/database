@@ -175,8 +175,8 @@ This lab assumes you have:
 1. Connect as user <code>SYS</code> with the <code>SYSDBA</code>.
 
    <pre>
-   CONNECT SYS@<i>pdb_name</i> AS SYSDBA
-   Enter password: <i>password</i>
+     CONNECT SYS@<i>pdb_name</i> AS SYSDBA
+     Enter password: <i>password</i>
    </pre>
 
 2. Revoke the <code>AUDIT_ADMIN</code> role from <code>HR</code>.  
