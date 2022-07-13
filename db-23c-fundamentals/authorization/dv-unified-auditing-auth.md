@@ -95,9 +95,9 @@ This lab assumes you have:
 
    The following error message appears:
 
-   <pre>   
+   <pre>
    ERROR at line 1:
-   ORA-01031: insufficient privileges
+   ORA-01031: insufficient privileges>
    </pre>
 
    Alas, even though user <code>HR</code> has the <code>AUDIT_ADMIN</code>, this user cannot create unified audit policies in Oracle Database Vault.
