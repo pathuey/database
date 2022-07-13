@@ -7,7 +7,7 @@ This LiveLab explores how to authorize an Oracle Database user to create unified
 
 Estimated Time: 15 minutes
 
-### About Unified Auditing Authorization in an Oracle Database Vault Environment)
+### About Unified Auditing Authorization in an Oracle Database Vault Environment
 
 In earlier releases of Oracle Database, an Oracle Database Vault user had to create command rules if they wanted to use audit-related PL/SQL statements such as <code>CREATE AUDIT POLICY</code>. Starting in release 23c, an Oracle Database Vault admnistrator (that is, a user who has the <code>DV_OWNER</code> or <code>DV_ADMIN</code> role) can authorize users in Database Vault to have the <code>AUDIT_ADMIN</code> or <code>AUDIT_VIEWER</code> role privileges, similar to authorizing Oracle Data Pump users or Oracle Database Replay users to work in an Oracle Database Vault environment.
 
