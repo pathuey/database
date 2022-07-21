@@ -170,7 +170,7 @@ This lab assumes you have:
 
 	 Now, user <code>HR</code> can no longer create and manage unified audit policies in Oracle Database Vault.
 
-## Task 7: Revoke the AUDIT_ADMI Role from HR
+## Task 7: Revoke the AUDIT_ADMIN Role from HR
 
 1. Connect as user <code>SYS</code> with the <code>SYSDBA</code>.
 
