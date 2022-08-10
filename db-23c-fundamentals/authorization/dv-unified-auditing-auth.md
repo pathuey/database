@@ -13,7 +13,7 @@ In earlier releases of Oracle Database, an Oracle Database Vault user had to cre
 
 ### Objectives
 
-In this lab, you will:
+In this lab, you will perform the following steps:
 * Log in to SQL*Plus as user <code>SYS</code> and then grant the <code>AUDIT_ADMIN</code> to user <code>HR</code> in a PDB.
 * As user <code>HR</code>, try to create a unified audit policy.
 * Connect as a user who has been granted the <code>DV_OWNER</code> role, and then authorize <code>HR</code> user to have unified auditing authorization.
